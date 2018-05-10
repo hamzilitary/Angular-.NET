@@ -1,0 +1,39 @@
+<h1 class="header">Welcome To Weather Or Not</h1>
+
+
+<h2>Activities Planned</h2>
+
+
+<div *ngIf="!filtered">
+  <div class="form-group header">
+    <select #newCategory>
+      <option value="All">All</option>
+      <option value="Suggested">Suggested</option>
+      <option value="NotSuggested">Not Suggested</option>
+    </select>
+  </div>
+  <button class="btn btn-dark header" (click)="setFilterCategory(newCategory.value)">Filter Categories</button>
+</div>
+<div *ngIf="filtered">
+  <button class="btn btn-dark header" (click)="resetFilterCategory()">All Tasks</button>
+</div>
+<div *ngIf="!filtered">
+  <div *ngFor="let task of tasks | async">
+    <div class="card">
+      <div class="card-body">
+        <h3><em>{{task.task}}</em> - {{task.description}}</h3>
+        <button (click)="goToDetail(task)" type="button" name="button">View Task</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="filtered">
+  <div *ngFor="let task of tasks | async">
+    <div *ngIf="task.suggest === (filterBySuggest === 'Suggested')">
+      <div class="card">
+        <h3><em>{{task.task}}</em> - {{task.description}}</h3>
+        <button (click)="goToDetail(project)" type="button" name="button">View Project</button>
+      </div>
+    </div>
+  </div>
+</div>
